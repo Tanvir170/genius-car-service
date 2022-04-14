@@ -1,26 +1,33 @@
 import React from "react";
-import google from '../../../images/social/file-google-logo-svg-wikimedia-commons-23.png'
-import facebook from '../../../images/social/Facebook-Logo-PNG.png'
-import github from '../../../images/social/github.png'
-import {useSignInWithGoogle} from "react-firebase-hooks/auth";
+import google from "../../../images/social/file-google-logo-svg-wikimedia-commons-23.png";
+import facebook from "../../../images/social/Facebook-Logo-PNG.png";
+import github from "../../../images/social/github.png";
+import {
+  useSignInWithGithub,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
   const navigate = useNavigate();
   let errorElement;
-  if (error) {
-    
-    errorElement = <div>
-      <p className="text-danger">Error: {error.message}</p>
-    </div>
-    
+
+  if (error || error1) {
+    errorElement = (
+      <div>
+        <p className="text-danger">Error: {error?.message} {error1?.message}</p>
+      </div>
+    );
   }
 
-  if (user) {
-    navigate('/home')
+  if (user || user1) {
+    navigate("/home");
   }
+
+
   return (
     <div>
       <div className="d-flex align-items-center">
@@ -39,7 +46,7 @@ const SocialLogin = () => {
         <button className="btn btn-white d-block ">
           <img style={{ width: "80px" }} src={facebook} alt="" />
         </button>
-        <button className="btn btn-white d-block mx-auto">
+        <button onClick={()=> signInWithGithub()} className="btn btn-white d-block mx-auto">
           <img style={{ width: "80px" }} src={github} alt="" />
         </button>
       </div>

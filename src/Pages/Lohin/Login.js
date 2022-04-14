@@ -12,7 +12,7 @@ const Login = () => {
     const navigate =useNavigate();
     const location= useLocation();
     let from = location.state?.from?.pathname || "/";
-
+    let errorElement
     const [
       signInWithEmailAndPassword,
       user,
@@ -22,7 +22,17 @@ const Login = () => {
 
     if(user){
       navigate(from, { replace: true });
-    }
+  }
+  
+  if (error) {
+    errorElement = (
+      <div>
+        <p className="text-danger">
+          Error: {error?.message}
+        </p>
+      </div>
+    );
+  }
 
     const handleSubmit =event=>{
         event.preventDefault();
@@ -55,6 +65,7 @@ const Login = () => {
           Submit
         </Button>
       </Form>
+      {errorElement}
       <p>New To Geniuos Car? <Link to="/register" className="text-danger pe-auto text-decoration-none" onClick={navigateRegister}>Register Here</Link></p>
       <SocialLogin></SocialLogin>
     </div>
