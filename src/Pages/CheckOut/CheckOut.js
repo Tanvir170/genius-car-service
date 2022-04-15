@@ -2,12 +2,9 @@ import React from 'react';
 
 const CheckOut = () => {
     return (
-        <div>
-            <div>
-                <div></div>
-                <p>or</p>
-            </div>
-        </div>
+      <div>
+        <h2>Please Checkout your booking</h2>
+      </div>
     );
 };
 
