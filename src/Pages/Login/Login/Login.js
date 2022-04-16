@@ -24,20 +24,21 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
 
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-
+  
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user]);
+  
   if (loading || sending) {
     return <Loading></Loading>;
   }
 
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  // if (user) {
+  //   navigate(from, { replace: true });
+  // }
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/home");
-  //   }
-  // });
 
   if (error) {
     errorElement = <p className="text-danger">Error: {error?.message}</p>;
