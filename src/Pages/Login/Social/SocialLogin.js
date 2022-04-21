@@ -41,11 +41,11 @@ const SocialLogin = () => {
       <div className="d-flex ">
         <button
           onClick={() => signInWithGoogle()}
-          className="btn btn-white d-block mx-auto "
+          className="btn btn-white d-block mx-auto"
         >
           <img style={{ width: "80px" }} src={google} alt="" />
         </button>
-        <button className="btn btn-white d-block ">
+        <button className="btn btn-white d-block">
           <img style={{ width: "80px" }} src={facebook} alt="" />
         </button>
         <button onClick={()=> signInWithGithub()} className="btn btn-white d-block mx-auto">
