@@ -24,13 +24,13 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
 
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-  
+
   useEffect(() => {
     if (user) {
-      navigate("/home");
+      navigate(from);
     }
   }, [user]);
-  
+
   if (loading || sending) {
     return <Loading></Loading>;
   }
@@ -38,7 +38,6 @@ const Login = () => {
   // if (user) {
   //   navigate(from, { replace: true });
   // }
-
 
   if (error) {
     errorElement = <p className="text-danger">Error: {error?.message}</p>;
@@ -61,9 +60,8 @@ const Login = () => {
     if (email) {
       await sendPasswordResetEmail(email);
       toast("Sent email");
-    }
-    else {
-      toast('please enter your email address')
+    } else {
+      toast("please enter your email address");
     }
   };
 
@@ -97,7 +95,7 @@ const Login = () => {
       </Form>
       {errorElement}
       <p>
-        New To Geniuos Car?{" "}
+        New To Genius Car?{" "}
         <Link
           to="/register"
           className="text-primary pe-auto text-decoration-none"
