@@ -1,4 +1,4 @@
-import { async } from "@firebase/util";
+import axios from "axios";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
@@ -10,7 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import SocialLogin from "../Social/SocialLogin";
 import Loading from "../../Shared/Loading/Loading";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -43,12 +43,15 @@ const Login = () => {
     errorElement = <p className="text-danger">Error: {error?.message}</p>;
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+    const { data } = await axios.post("http://localhost:5000/login", { email });
+    localStorage.setItem("accessToken", data.accessToken);
+    navigate(from, { replace: true });
   };
 
   const navigateRegister = (event) => {
@@ -114,7 +117,6 @@ const Login = () => {
         </button>
       </p>
       <SocialLogin></SocialLogin>
-      <ToastContainer></ToastContainer>
     </div>
   );
 };

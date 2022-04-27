@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useServiceDetail = (serviceId) => {
-  const [service, setService] = useState({ name: "" });
+  const [service, setService] = useState({});
 
   useEffect(() => {
     const url = `http://localhost:5000/service/${serviceId}`;
